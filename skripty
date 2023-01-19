@@ -20,3 +20,40 @@ CALCULATE(
     data[Lokalita] = SELECTEDVALUE(data[Lokalita])))
 
 RETURN varianta_1
+
+
+
+
+04 suma srazek rok 2000 = 
+-- TAKTO NEEE
+VAR varianta_1 = 
+CALCULATE(
+    SUM(data[Srazky]),
+        FILTER(
+            ALL(data),
+        data[Lokalita] = SELECTEDVALUE(data[Lokalita])
+        && data[Rok] = 2000))
+
+VAR varianta_2  =
+CALCULATE(
+    SUM(data[Srazky]),
+        FILTER(
+            ALL(dim_datumy),
+         dim_datumy[Rok] = 2000))
+
+-- Téměř ideální varianta
+VAR varianta_3  =
+CALCULATE(
+    SUM(data[Srazky]),
+        FILTER(
+            ALL(dim_datumy[Rok]),
+         dim_datumy[Rok] = 2000))
+
+-- Pokud jde, tak takto
+VAR varianta_4  =
+CALCULATE(
+    SUM(data[Srazky]),
+       dim_datumy[Rok] = 2000)
+
+
+RETURN varianta_4
