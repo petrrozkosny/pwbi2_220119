@@ -1,0 +1,22 @@
+03 suma srazek vsechny roky = 
+-- suma srazek v dane lokalite za vsechny roky
+
+-- varianta 1
+VAR varianta_1 = CALCULATE(
+    SUM(data[Srazky]),
+    ALL(dim_datumy[Rok]))
+-- TAKTO RADĚJI NE
+-- varianta 2
+VAR varianta_2 = CALCULATE(
+    SUM(data[Srazky]),
+    ALL(dim_datumy))
+
+-- TAKTO NEEEEE
+VAR varianta_3 = 
+CALCULATE(
+    SUM(data[Srazky]),
+    FILTER(
+        ALL(data),
+    data[Lokalita] = SELECTEDVALUE(data[Lokalita])))
+
+RETURN varianta_1
