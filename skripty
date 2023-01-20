@@ -57,3 +57,32 @@ CALCULATE(
 
 
 RETURN varianta_4
+
+
+
+
+33 rok maximalni srazky v mesici = 
+
+VAR tabulka = 
+SUMMARIZE(
+    FILTER(
+    ALL(data)
+    ,data[Lokalita] = SELECTEDVALUE(dim_lokality[Lokalita])
+    && data[Mesic] = SELECTEDVALUE(dim_datumy[Mesic]))
+    ,data[Rok],
+    "Srazky",
+    SUM(data[Srazky]))
+
+VAR max_srazky = ROUND(
+MAXX(tabulka,[Srazky]),2)
+
+VAR min_srazky = 
+ROUND(
+MINX(tabulka,[Srazky]),2)
+
+VAR _srazky = ROUND(SUM(data[Srazky]),2)
+
+RETURN
+SWITCH(TRUE(),
+_srazky = max_srazky,"GOLD",
+_srazky = min_srazky,"CYAN")
