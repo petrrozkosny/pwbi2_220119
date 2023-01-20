@@ -86,3 +86,24 @@ RETURN
 SWITCH(TRUE(),
 _srazky = max_srazky,"GOLD",
 _srazky = min_srazky,"CYAN")
+
+
+
+
+36 mesic max srazek = 
+
+VAR mesicni_srazky = 
+
+SUMMARIZE(
+    FILTER(
+    ALL(data),
+    data[Lokalita] = SELECTEDVALUE(data[Lokalita])
+    && data[Rok] = SELECTEDVALUE(data[Rok])),
+    data[Mesic],
+    "Mesicni srazky",
+    SUM(data[Srazky]))
+
+VAR maximalni_mesicni_srazky = ROUND(MAXX(mesicni_srazky,[Mesicni srazky]),2)
+
+RETURN
+IF(ROUND(SUM(data[Srazky]),2) = maximalni_mesicni_srazky,"RED")
