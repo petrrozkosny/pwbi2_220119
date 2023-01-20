@@ -1,0 +1,19 @@
+
+25. Maximální teplota v daném roce, měsíci, lokalitě
+26. Maximální teplota v předchozím roce, daném měsíci, lokalitě
+27. Maximální teplota v daném roce, měsíci, všech lokalitách
+28. Maximální teplota v daném roce, měsíci, zemi lokality
+
+29. Kumulativní suma srážek v daném roce, lokalitě
+30. Kumulativní suma srážek v předchozím roce, lokalitě
+31. Pokud je hodnota míry z bodu 25 nejvyšší teplotou v daném měsíci, lokalitě, napříč roky,
+tak podbarvit "gold" (laicky: hledáme nejvyšší hodnotu v daném měsíci napříč roky)
+
+BONUS:
+Kontingenční tabulka
+- řádky: dim_datumy[Rok]
+- sloupce: dim_datumy[Mesic]
+- hodnoty: maximum z data[Teplota]
+- Podmíněně formátovat:
+	- barva "RED" nejvyšší maximální teplota v daném roce
+	- barva "BLUE" nejnižší maximální teplota v daném roce
