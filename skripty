@@ -107,3 +107,29 @@ VAR maximalni_mesicni_srazky = ROUND(MAXX(mesicni_srazky,[Mesicni srazky]),2)
 
 RETURN
 IF(ROUND(SUM(data[Srazky]),2) = maximalni_mesicni_srazky,"RED")
+
+
+
+02 nejdestivejsi rok = 
+
+VAR tabulka = 
+    SUMMARIZE(
+        FILTER(
+        ALL(data),        
+        data[Lokalita] = SELECTEDVALUE(data[Lokalita])),
+    data[Rok],
+   "Rocni srazky",
+    SUM(data[Srazky]))
+-- jaké je maximum z tabulka
+VAR max_rocni_srazky = 
+    MAXX(
+        tabulka,
+    [Rocni srazky])
+
+RETURN 
+    MAXX(
+        FILTER(
+        tabulka,
+    [Rocni srazky] = max_rocni_srazky),
+    data[Rok])
+
